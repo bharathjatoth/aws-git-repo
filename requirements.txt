@@ -1,6 +1,8 @@
+# requirements
 fastapi
 uvicorn
 jinja2
 pytest
 flake8
 httpx
+python-multipart
