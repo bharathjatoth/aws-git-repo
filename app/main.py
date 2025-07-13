@@ -20,4 +20,10 @@ async def get_form(request: Request):
 @app.post("/add", response_class=HTMLResponse)
 async def add_form(request: Request, a: float = Form(...), b: float = Form(...)):
     result = a + b
-    return templates.TemplateResponse("index.html", {"request": request, "result": result})
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "result": result
+        }
+    )
