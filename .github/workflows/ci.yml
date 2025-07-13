@@ -2,11 +2,16 @@ name: CI for FastAPI Sum App
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  test-lint-docker:
+  test-lint-build:
     runs-on: ubuntu-latest
+    name: Run Tests, Lint, and Docker Build
 
     steps:
     - name: Checkout code
@@ -22,11 +27,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run tests
-      run: pytest
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
+    - name: Run tests with pytest
+      run: |
+        pytest
 
     - name: Run flake8 linting
-      run: flake8 app
+      run: |
+        pip install flake8
+        flake8 app
 
     - name: Build Docker Image
-      run: docker build -t fastapi-sum .
+      run: |
+        docker build -t fastapi-sum-app .
