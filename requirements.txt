@@ -1,8 +1,9 @@
-# requirements
 fastapi
 uvicorn
 jinja2
-pytest
-flake8
-httpx
 python-multipart
+boto3>=1.28.0
+redis
+flake8
+pytest
+black
